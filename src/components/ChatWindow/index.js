@@ -3,6 +3,8 @@ import EmojiPicker from 'emoji-picker-react'
 
 import './index.css'
 
+import Api from '../../Api'
+
 import MessageItem from '../MessageItem'
 
 import SearchIcon from '@material-ui/icons/Search'
@@ -13,7 +15,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import SendIcon from '@material-ui/icons/Send'
 import MicIcon from '@material-ui/icons/Mic'
 
-export default ({ user }) => {
+export default ({ user, data }) => {
   const body = useRef()
 
   let recognition = null
@@ -26,191 +28,14 @@ export default ({ user }) => {
   const [emojiOpen, setEmojiOpen] = useState(false)
   const [text, setText] = useState('')
   const [listening, setListening] = useState(false)
-  const [list, setList] = useState([
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
+  const [list, setList] = useState([])
+  const [users, setUsers] = useState([])
 
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-    {
-      author: 123,
-      body: 'bla bla bla',
-    },
-    { author: 123, body: 'bla bla' },
-    { author: 1234, body: 'bla bla bla' },
-  ])
+  useEffect(() => {
+    setList([])
+    let unsub = Api.onChatContent(data.chatId, setList, setUsers)
+    return unsub
+  }, [data.chatId])
 
   useEffect(() => {
     if (body.current.scrollHeight > body.current.offsetHeight) {
@@ -247,18 +72,26 @@ export default ({ user }) => {
     }
   }
 
-  const handleSendClick = () => {}
+  const handleInputKeyUp = (e) => {
+    if (e.keyCode === 13) {
+      handleSendClick()
+    }
+  }
+
+  const handleSendClick = () => {
+    if (text !== '') {
+      Api.sendMessage(data, user.id, 'text', text, users)
+      setText('')
+      setEmojiOpen(false)
+    }
+  }
 
   return (
     <div className='chatWindow'>
       <div className='chatWindow--header'>
         <div className='chatWindow--headerinfo'>
-          <img
-            className='chatWindow--avatar'
-            src='https://conteudo.imguol.com.br/c/entretenimento/80/2017/04/25/a-atriz-zoe-saldana-como-neytiri-em-avatar-1493136439818_v2_750x421.jpg'
-            alt=''
-          />
-          <div className='chatWindow--name'>Marcello Santos</div>
+          <img className='chatWindow--avatar' src={data.image} alt='' />
+          <div className='chatWindow--name'>{data.title}</div>
         </div>
 
         <div className='chatWindow--headerbuttons'>
@@ -314,6 +147,7 @@ export default ({ user }) => {
             placeholder='Digite uma mensagem'
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onKeyUp={handleInputKeyUp}
           />
         </div>
 
