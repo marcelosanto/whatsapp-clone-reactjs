@@ -25,6 +25,13 @@ function App() {
   })
   const [showNewChat, setShowNewChat] = useState(false)
 
+  useEffect(() => {
+    if (user !== null) {
+      let unsub = Api.onChatList(user.id, setChatList)
+      return unsub
+    }
+  }, [user])
+
   const handleNewCaht = () => {
     setShowNewChat(true)
   }
@@ -53,7 +60,11 @@ function App() {
           setShow={setShowNewChat}
         />
         <header>
-          <img className='header--avatar' src={user.avatar} alt='Avatar' />
+          <img
+            className='header--avatar'
+            src={user.avatar || user.image}
+            alt='Avatar'
+          />
           <div className='header--buttons'>
             <div className='header--btn'>
               <DonutLargeIcon style={{ color: '#919191' }} />
